@@ -1,0 +1,21 @@
+//
+//  ContentView.swift
+//  HWS_Challenge_01_UnitCalc
+//
+//  Created by Guy on 1/18/21.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, world!")
+            .padding()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
