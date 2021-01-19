@@ -16,34 +16,61 @@ struct ContentView: View {
     var outputParameter = 0
     
     
-    enum Units {
+    enum InputUnitTypes {
         case duration
-        case wavelength
+        case waveLength
         case frequency
         case bpm
+    }
+    
+    enum OutputUnitTypes {
+        case duration
+        case waveLength
+        case frequency
+        case bpm
+    }
+    
+    
+    func convertToDuration(unit: InputUnitTypes.($inputUnit)) -> Double {
+            switch unit {
+                case .duration:
+                    let rosettaDuration = Double(inputParameter) ?? 0
+                    return rosettaDuration
+                case .waveLength:
+                    let rosettaDuration = (Double(inputParameter) ?? 0) / speedOfSound
+                    return rosettaDuration
+                case .frequency:
+                    let rosettaDuration = 1 / (Double(inputParameter) ?? 0)
+                    return rosettaDuration
+                case .bpm:
+                    let rosettaDuration = 1 / ((Double(inputParameter) ?? 0) / 60)
+                    return rosettaDuration
+        }
+    }
+    
+  
+    func convertFromDuration(unit: OutputUnitTypes) -> String {
+        switch unit {
+        case .duration:
+            let duration = rosettaDuration
+            return String(duration)
+            
+        case .waveLength:
+            let waveLength = rosettaDuration * speedOfSound
+            return String(waveLength)
+        case .frequency:
+            let frequency = rosettaDuration
+        case .bpm:
+            <#code#>
+        }
     }
     let unitList = ["Bpm", "Frequency", "Duration", "Wavelength"]
     let speedOfSound = 343.0
     
-    var duration: Double {
-        let duration = Double(inputParameter) ?? 0
-        return duration
-    }
+   
+
     
-    var waveLength: Double {
-        let length = duration * speedOfSound
-        return length
-    }
-    
-    var frequency: Double {
-        let frequency = 1/duration
-        return frequency
-    }
-    
-    var bpm: Double {
-        let bpm = 60/duration
-        return bpm
-    }
+
     
     var body: some View {
         Form {
